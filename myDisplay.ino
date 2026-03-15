@@ -22,6 +22,8 @@ char* SSID = "SSID";
 const char* PASSWORD = "WIFI_PASSWORD";
 const char* CLIENT_ID = "SPOTIFY_ID";
 const char* CLIENT_SECRET = "SPOTIFY_CLIENT_SECRET";
+unsigned long lastSpotifyCheck = 0; 
+const unsigned long spotifyInterval = 1000; // 1 second
 
 String lastArtist;
 String lastTrackname;
@@ -63,36 +65,36 @@ void setup() {
 
 void loop()
 {
-    String currentArtist = sp.current_artist_names();
-    String currentTrackname = sp.current_track_name();
+    // Only check Spotify if 1 second has passed
+    if (millis() - lastSpotifyCheck >= spotifyInterval) {
+        lastSpotifyCheck = millis(); // Reset the timer
 
-    // Check if the artist changed
-    if (lastArtist != currentArtist && currentArtist != "Something went wrong" && !currentArtist.isEmpty()) {
-        // Clear the entire screen for a fresh start on a new artist
-        tft.fillScreen(ST77XX_BLACK); 
-        lastArtist = currentArtist;
-        
-        Serial.println("Artist: " + lastArtist);
-        tft.setCursor(10, 10);
-        tft.setTextColor(ST77XX_WHITE); // Ensure text is visible
-        tft.setTextSize(1);
-        tft.print(lastArtist.c_str());
+        String currentArtist = sp.current_artist_names();
+        String currentTrackname = sp.current_track_name();
+
+        // Check if the artist changed
+        if (lastArtist != currentArtist && currentArtist != "Something went wrong" && !currentArtist.isEmpty()) {
+            tft.fillScreen(ST77XX_BLACK); 
+            lastArtist = currentArtist;
+            tft.setCursor(10, 10);
+            tft.setTextColor(ST77XX_WHITE);
+            tft.setTextSize(1);
+            tft.print(lastArtist.c_str());
+        }
+
+        // Check if the track changed
+        if (lastTrackname != currentTrackname && currentTrackname != "Something went wrong" && currentTrackname != "null") {
+            tft.fillRect(0, 40, 160, 30, ST77XX_BLACK); 
+            lastTrackname = currentTrackname;
+            tft.setCursor(10, 40);
+            tft.setTextColor(ST77XX_CYAN);
+            tft.print(lastTrackname.c_str());
+        }
     }
 
-    // Check if the track changed
-    if (lastTrackname != currentTrackname && currentTrackname != "Something went wrong" && currentTrackname != "null") {
-        // FIX: Clear only the track name area (x, y, width, height)
-        // Adjust 128, 20 based on your screen's resolution and font size
-        tft.fillRect(0, 40, 160, 30, ST77XX_BLACK); 
-        
-        lastTrackname = currentTrackname;
-        Serial.println("Track: " + lastTrackname);
-        
-        tft.setCursor(10, 40);
-        tft.setTextColor(ST77XX_CYAN); // Different color for the track makes it pop
-        tft.print(lastTrackname.c_str());
-    }
-    // 1. Play/Pause Toggle
+    // --- Button logic stays OUTSIDE the if-block ---
+    // This allows buttons to remain responsive regardless of the 1-second timer.
+
     if (digitalRead(BTN_PLAY_PAUSE) == LOW) {
         sp.start_resume_playback(); 
         delay(300); // Simple debounce
