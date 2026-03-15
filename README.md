@@ -1,6 +1,7 @@
 This is my WiFi-connected Spotify display that shows album art and track information on a 1.8" TFT screen, it also has 6 buttons. 3 for controling volume and 3 for the songs. 
 
 Before uploading the file to your arduino you need to put in the details for your wifi and spotify client.
+I will upload an assembly tutorial once I have all the parts.
 
 Wiring diagram: 
 
