@@ -9,7 +9,7 @@ Wiring diagram:
 
 Case: 
 
-![cad1](pictures/cad1.png) ![cad2](pictures/cad2.png) ![cad3](pictures/cad3.png)
+![cad1](pictures/cad1.png) ![cad2](pictures/cad2.png) ![cad3](pictures/cad3.png) ![cad4](pictures/cad4.png)
 
 |BOM:|  |
 |---|---|
