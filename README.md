@@ -5,7 +5,7 @@ I will upload an assembly tutorial once I have all the parts.
 
 Wiring diagram: 
 
-![Wiring diagram](pictures/wiring-diagram.png)
+![Wiring diagram](pictures/wiring_diagram.png)
 
 Case: 
 
