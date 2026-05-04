@@ -19,10 +19,10 @@
 #define BTN_PERVIOUS   21
 
 int currentVolume = 50; // Local tracker for volume
-char* SSID = "KK_Family";
-const char* PASSWORD = "1MxvwUrfu6d4uf8Uc6s2";
-const char* CLIENT_ID = "776a97267ba546c38094552e815e9e72";
-const char* CLIENT_SECRET = "19a100a3a1f34212a74e0e9437d1cb20";
+char* SSID = "";
+const char* PASSWORD = "";
+const char* CLIENT_ID = "";
+const char* CLIENT_SECRET = "";
 unsigned long lastSpotifyCheck = 0; 
 const unsigned long spotifyInterval = 1000; // 1 second
 
